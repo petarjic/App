@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mediblock/res/custom_colors.dart';
+import 'package:mediblock/screens/dashboard.dart';
 import 'package:mediblock/utils/authentication.dart';
+import 'package:mediblock/utils/database.dart';
 import 'package:mediblock/widgets/logo_widget.dart';
 
 class NamePage extends StatefulWidget {
@@ -9,7 +11,7 @@ class NamePage extends StatefulWidget {
 }
 
 class _NamePageState extends State<NamePage> {
-  // Database database = Database();
+  Database database = Database();
 
   TextEditingController textController;
   FocusNode textFocusNode;
@@ -127,53 +129,51 @@ class _NamePageState extends State<NamePage> {
                           ),
                         ),
                       )
-                    : Padding(
-                        padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                        child: Container(
-                          width: double.maxFinite,
-                          child: RaisedButton(
-                            color: CustomColors.blue,
-                            onPressed: textController.text.isNotEmpty
-                                ? () async {
-                                    textFocusNode.unfocus();
-                                    setState(() {
-                                      _isStoring = true;
-                                    });
+                    : Container(
+                        width: double.maxFinite,
+                        child: RaisedButton(
+                          color: CustomColors.blue,
+                          onPressed: textController.text.isNotEmpty
+                              ? () async {
+                                  textFocusNode.unfocus();
+                                  setState(() {
+                                    _isStoring = true;
+                                  });
 
-                                    // await database
-                                    //     .storeUserData(userName: textController.text)
-                                    //     .whenComplete(() => Navigator.of(context).pushReplacement(
-                                    //           MaterialPageRoute(
-                                    //             builder: (context) => PresencePage(
-                                    //               userName: textController.text,
-                                    //             ),
-                                    //           ),
-                                    //         ))
-                                    //     .catchError(
-                                    //       (e) => print('Error in storing data: $e'),
-                                    //     );
+                                  await database
+                                      .storeUserData(userName: textController.text)
+                                      .whenComplete(
+                                        () => Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) => DashboardPage(
+                                              userName: textController.text,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .catchError(
+                                        (e) => print('Error in storing data: $e'),
+                                      );
 
-                                    setState(() {
-                                      _isStoring = false;
-                                    });
-                                  }
-                                : null,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
-                              child: Text(
-                                'CONTINUE',
-                                style: TextStyle(
-                                  fontFamily: 'Raleway',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: textController.text.isNotEmpty
-                                      ? Colors.white
-                                      : Colors.white24,
-                                  letterSpacing: 2,
-                                ),
+                                  setState(() {
+                                    _isStoring = false;
+                                  });
+                                }
+                              : null,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                            child: Text(
+                              'CONTINUE',
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    textController.text.isNotEmpty ? Colors.white : Colors.white24,
+                                letterSpacing: 2,
                               ),
                             ),
                           ),
