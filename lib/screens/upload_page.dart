@@ -262,11 +262,15 @@ class _UploadPageState extends State<UploadPage> {
                   children: [
                     Text(
                       'uploader: ',
-                      style: TextStyle(color: CustomColors.yellow, fontSize: 18),
+                      style: TextStyle(
+                        color: CustomColors.yellow,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Text(
                       '${widget.userName}',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(color: Colors.white, fontSize: 18, letterSpacing: 1.4),
                     ),
                   ],
                 ),
@@ -309,7 +313,10 @@ class _UploadPageState extends State<UploadPage> {
                                                 Text(
                                                   _selectedFile.files[0].name,
                                                   style: TextStyle(
-                                                      color: CustomColors.yellow, fontSize: 18.0),
+                                                    color: CustomColors.yellow,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -324,7 +331,10 @@ class _UploadPageState extends State<UploadPage> {
                                                 Text(
                                                   '${_selectedFile.files[0].size} KB',
                                                   style: TextStyle(
-                                                      color: CustomColors.yellow, fontSize: 14.0),
+                                                    color: CustomColors.yellow,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -439,6 +449,7 @@ class _UploadPageState extends State<UploadPage> {
                         errorStyle: TextStyle(
                           fontSize: 12,
                           color: Colors.redAccent,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
